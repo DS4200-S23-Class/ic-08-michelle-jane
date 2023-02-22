@@ -1,11 +1,11 @@
-// declare constants
+// Declare constants
 const FRAME_HEIGHT = 700;
 const FRAME_WIDTH = 700;
 const MARGINS = {left: 75, right: 75, top: 75, bottom: 75};
 const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
-// make the big frame
+// Make the big frame
 const FRAME1 = d3.select("#vis1")
 				.append("svg")
 					.attr("height", FRAME_HEIGHT)
@@ -54,22 +54,23 @@ function build_barchart() {
 
 
 	// Find max of y 
-		const MAX_Y = d3.max(data, (d) => {
-			return parseInt(d.Value);
-		}) 
+	const MAX_Y = d3.max(data, (d) => {
+		return parseInt(d.Value);
+	}) 
 
-		// Add Y axis
-		const y = d3.scaleLinear()
-		  .domain([0, (MAX_Y)])
-		  .range([ VIS_HEIGHT, 0]);
-		FRAME1.append("g")
+	// Add Y axis
+	const y = d3.scaleLinear()
+		  		.domain([0, (MAX_Y)])
+		  		.range([ VIS_HEIGHT, 0]);
+
+	FRAME1.append("g")
 			.attr("transform", 
 					"translate(" + MARGINS.left + "," + (MARGINS.bottom) + ")")
 		  	.call(d3.axisLeft(y).ticks(6))
 		  	.attr("font-size", "10px");
 
-		// Plot barchart
-		FRAME1.selectAll("bars")
+	// Plot barchart
+	FRAME1.selectAll("bars")
 			// Loop through all the data from the dataset and append them as rectangles
 		  	.data(data)
 		  	.enter()
@@ -82,6 +83,7 @@ function build_barchart() {
 			    .attr("class", "bar");
 		})
 }
-// call the function to make the bar chart
+
+// Call the function to make the bar chart
 build_barchart();
 
